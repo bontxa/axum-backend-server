@@ -83,5 +83,6 @@ pub async fn handle_form(State(client): State<AppState>, Form(data): Form<FormDa
     }
 
     //Ok(Redirect::to("/success.html"))
-    Ok(Redirect::temporary("/success.html"))
+    //Ok(Redirect::temporary("/success.html"))
+    Ok(Redirect::to("http://localhost:5000/success.html"))
 }

@@ -1,9 +1,10 @@
 version: '3.8'
 services:
   rust-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    #build:
+     # context: .
+      #dockerfile: Dockerfile
+    image: server
     ports:
       - 8000:8000
     depends_on:

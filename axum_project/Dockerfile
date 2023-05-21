@@ -34,7 +34,8 @@ WORKDIR /app
 
 COPY --from=builder /app/target/release/axum-backend .
 COPY .env .
-COPY html ./html
+#COPY html ./html
+#COPY ./success.html .
 
 USER axum:axum
 
