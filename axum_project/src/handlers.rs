@@ -1,14 +1,10 @@
 use axum::{
     extract::{Form, State},
     response::Redirect,
-    http::{Response, StatusCode}
+    http::StatusCode,
     };
 
-use std::{
-    fs,
-    convert::Infallible,
-    env
-    };
+use std::env;
 
 use bb8_postgres::{
     tokio_postgres::{
@@ -68,7 +64,6 @@ impl  AppState {
 pub async fn handle_form(State(client): State<AppState>, Form(data): Form<FormData>) -> Result<Redirect, StatusCode> {
     println!("->>\thandle_form__handler called");
 
-    //let conn = client.db_pool.get().await.unwrap();
     let conn = match client.db_pool.get().await {
         Ok(connection) => connection,
         Err(error) => {
@@ -87,36 +82,6 @@ pub async fn handle_form(State(client): State<AppState>, Form(data): Form<FormDa
         return Err(StatusCode::INTERNAL_SERVER_ERROR);
     }
 
-    Ok(Redirect::to("/form/success/"))
+    //Ok(Redirect::to("/success.html"))
+    Ok(Redirect::temporary("/success.html"))
 }
-
-async fn read_file_handler(filename: &str) -> Result<Response<String>, Infallible> {
-    match fs::read_to_string(filename) {
-        Ok(contents) => Ok(Response::new(contents)),
-        Err(e) => Ok(Response::builder()
-            .status(StatusCode::INTERNAL_SERVER_ERROR)
-            .body(e.to_string())
-            .unwrap()),
-    }
-}
-
-pub async fn form_handler() -> Result<Response<String>, Infallible> {
-    println!("->>\tform_handler called");
-    read_file_handler("html/form.html").await
-}
-
-pub async fn success_handler() -> Result<Response<String>, Infallible> {
-    println!("->>\tsuccess_handler called");
-    read_file_handler("html/success.html").await
-}
-
-pub async fn index_handler() -> Result<Response<String>, Infallible> {
-    println!("->>\tindex_handler called");
-    read_file_handler("html/home.html").await
-}
-
-pub async fn about_handler() -> Result<Response<String>, Infallible> {
-    println!("->>\tabout_handler called");
-    read_file_handler("html/about.html").await
-}
-
