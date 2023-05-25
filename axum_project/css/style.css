@@ -1,0 +1,21 @@
+
+.index{
+    background-color: rgb(255, 217, 0);
+    color: rgb(211, 24, 24);
+}
+  
+.about {
+    background-color: rgb(73, 192, 73);
+    color: black;
+}
+
+.form {
+    background-color: rgb(224, 195, 224);
+    color: white;
+}
+
+.success {
+    background-color: pink;
+    color: blue;
+}
+  

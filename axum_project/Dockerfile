@@ -25,7 +25,7 @@ RUN cargo build --release
 
 #####STEP 2######
 
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
