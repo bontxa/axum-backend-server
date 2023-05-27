@@ -40,4 +40,3 @@ COPY .env .
 USER axum:axum
 
 CMD ["./axum-backend"]
-

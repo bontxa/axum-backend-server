@@ -6,22 +6,15 @@ use axum::{
     routing::post
     };
 use std::net::SocketAddr;
-use tower_http::cors::{
-    Any,
-    CorsLayer
-    };
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
     let client = AppState::make_pool().await;
 
-    let cors = CorsLayer::new().allow_origin(Any);
-
     let app = Router::new()
         .route("/submit-form", post(handle_form))
-        .with_state(client)
-        .layer(cors);
+        .with_state(client);
     
     let addr = SocketAddr::from(([0, 0, 0, 0], 8000));
     println!("listening on {}", addr);
